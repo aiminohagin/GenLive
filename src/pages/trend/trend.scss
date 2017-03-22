@@ -1,0 +1,13 @@
+page-trend {
+    .highlighted {
+        background-color: gold; //#FFA62F;
+    }   
+
+    .no-scroll .scroll-content{
+            overflow: hidden;
+        }
+
+    .scroll .scroll-content {
+        overflow: auto;
+    }
+}

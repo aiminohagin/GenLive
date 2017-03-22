@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar color="primary">    
+    <ion-buttons start>
+      <button ion-button icon-only
+        (click)="onLoadSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+     
+     <button ion-button icon-only
+        (click)="onLoadSearchPage()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Real-time Readings</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only
+        (click)="onLoadSearchPage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <!--<button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>-->
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <!--<ion-list *ngIf="dataPoints.length>0" approxItemHeight="80px" [virtualScroll]="dataPoints">-->
+  <ion-list >
+    <!--<ion-item-sliding *virtualItem="let dataPoint">-->
+    <ion-item-sliding *ngFor="let dataPoint of dataPoints">
+      <ion-item text-wrap>
+        <h2>{{dataPoint.Point.descriptor}}</h2>
+        <p>{{dataPoint.Point.tag}}</p>       
+        <p>
+          <strong>{{dataPoint.Value.value}} {{dataPoint.Point.engUnits}} 
+            @ {{dataPoint.Value.valueDT | date:"MM/dd/yy HH:mm:ss"}}
+          </strong>          
+        </p>
+        <button ion-button icon-only item-right clear
+          (click)="showChart(dataPoint.Point)">
+          <ion-icon name="stats" class="pgeBlue"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button icon-only clear
+          (click)="onRemovePoint(dataPoint)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

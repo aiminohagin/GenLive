@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Search PI Points</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="no-scroll">
+  <form #f="ngForm" (ngSubmit)="onSearch(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Tag Name</ion-label>
+        <ion-input type="text" name="tag" [ngModel]="searchDefaultFilter.tag"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Description</ion-label>
+        <ion-input type="text" name="description" [ngModel]="searchDefaultFilter.descriptor"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>UOM</ion-label>
+        <ion-input type="text" name="UOM" [ngModel]="searchDefaultFilter.engUnits"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Point Source</ion-label>
+        <ion-input type="text" name="pointSource" [ngModel]="searchDefaultFilter.pointSource"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div text-center>
+      <button ion-button secondary block>{{searchAction}}   
+        <ion-spinner name="circles" color="light" *ngIf="searchAction === 'Searching ...'"></ion-spinner>  
+      </button>    
+    </div>
+  </form>
+  <ion-content class="scroll">
+    <p *ngIf="foundPIPoints?.length>0">Found {{foundPIPoints?.length}} PI Tags</p>
+    <ion-list [virtualScroll]="foundPIPoints" approxItemHeight="50px">        
+      <button ion-item text-wrap *virtualItem="let point" 
+        [ngClass]="{'highlighted': isAdded(point)}"
+        (click)="onAddRemovePoint(point)">
+        <h2>{{point.descriptor}}</h2>
+        <p>{{point.tag}} {{point.engUnits}}</p>
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-content>
